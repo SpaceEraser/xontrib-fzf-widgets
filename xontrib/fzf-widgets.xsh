@@ -71,7 +71,7 @@ def fzf_insert_file(event, dirs_only=False):
                 cwd = os.getcwd()
                 os.chdir(expanded_path)
 
-    env = os.environ
+    env = dict(os.environ)
     if dirs_only:
         if 'fzf_find_dirs_command' in ${...}:
             env['FZF_DEFAULT_COMMAND'] = $fzf_find_dirs_command
