@@ -58,6 +58,8 @@ Other configuration variables:
 
 - ``$fzf_find_command``: A command used by `fzf` to search for files.
 - ``$fzf_find_dirs_command``: A command used by `fzf` to search for directories.
+- ``$fzf_binary_path``: Manually specify the path to the `fzf` binary rather
+  than searching for `fzf-tmux` (if $TMUX) or `fzf` on the PATH.
 
 .. code-block:: python
 

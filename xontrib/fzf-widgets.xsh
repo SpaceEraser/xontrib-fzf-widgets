@@ -7,18 +7,19 @@ from prompt_toolkit.keys import Keys
 
 __all__ = ()
 
-def get_fzf_binary_name():
-    fzf_tmux_cmd = 'fzf-tmux'
-    if 'TMUX' in ${...} and $(which fzf_tmux_cmd):
-        return fzf_tmux_cmd
-    return 'fzf'
-
-
 def get_fzf_binary_path():
-    path = $(which @(get_fzf_binary_name()))
-    if not path:
-        raise Exception("Could not determine path of fzf using `which`; maybe it is not installed or not on PATH?")
-    return path
+    if "fzf_binary_path" in ${...}:
+        return $fzf_binary_path
+
+    candidates = ['fzf']
+    if 'TMUX' in ${...}:
+        candidates.insert(0, 'fzf-tmux')
+
+    for c in candidates:
+        path = $(which -s @(c) err>/dev/null)
+        if path:
+            return path
+    raise Exception("Could not determine path of fzf using `which`; maybe it is not installed or not on PATH?")
 
 
 def fzf_insert_history(event):
